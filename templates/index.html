@@ -1,0 +1,53 @@
+<!-- templates/index.html -->
+<!doctype html>
+<html>
+<head>
+<meta name="viewport"
+       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{#<link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/bootstrap.css') }}">#}
+{#<link rel="stylesheet" media="screen" href="/static/css/bootstrap.min.css">#}
+{#<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">#}
+{#<link rel="stylesheet" href="/static/css/bootstrap-responsive.css">#}
+</head>
+<body>
+<div class="container">
+{#<img src="{{ url_for('static', filename='img/logo.jpg') }}" width="230" height="172">#}
+{#<img src="static/img/logo.jpg" width="460" height="345">#}
+<h1>Vigenère Cipher</h1>
+<form action="" method="post" role="form">
+    {{ form.csrf }}
+<div class="form-group">
+      <h2><label for="name">{{ form.question }}</label></h2>
+{#<input type="text" rows="80" cols="60" class="form-control" id="name" name="name" placeholder="פצח">#}
+</div>
+    <h3>Plain Text</h3>
+    {{ form.plain(cols="200", rows="25") }}
+    <h3>Key</h3>
+    {{ form.key() }}
+    <h3>Cipher Text</h3>
+    {{ form.cypher_text(cols="200", rows="25") }}
+    <h3>Cipher to Crack</h3>
+    {{ form.cypher(cols="200", rows="25") }}
+    <h3>Cracked</h3>
+    {{ form.decypher(cols="200", rows="25") }}
+<button type="submit" class="btn btn-success">Send</button>
+</form>{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+ 
+{% for message in messages %}
+{% if "Error" not in message[1]: %}
+<div class="alert alert-info">
+                <h2><strong>{{ message[1] }} </strong></h2></div>
+{% endif %}
+ 
+{% if "Error" in message[1]: %}
+<div class="alert alert-warning">
+                {{ message[1] }}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+ 
+</div>
+</body>
+</html>
